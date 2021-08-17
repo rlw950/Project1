@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Horoscopes For You - Leo</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="purple lighten-5" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="index.html" class="brand-logo">
+        <img class="responsive-img" src="images/moon.png" alt="moon">
+      </a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="index.html">Horoscope Compatibility</a></li>
+        <li><a href="index.html">Daily Horoscope</a></li>
+        <li><a href="index.html">Birth Chart</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <div id="index-banner" class="horoscope-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br>
+        <h1 class="header center purple-text text-lighten-3" id="giphyLeo" type="text">Leo</h1>
+        <div class="row center">
+          <h4 class="header purple-text text-lighten-5">July 23 - August 22</h4>
+          <h6 class="header purple-text text-lighten-5"id="todays-date">Date: </h6>
+        </div>
+
+        <br><br>
+
+      </div>
+    </div>
+    <div class="parallax"><img class= "responsive-img" src="images/background1.jpg" alt="Unsplashed background stars"></div>
+  </div>
+
+
+  <div class="container">
+    <div class="section">
+
+        <!-- Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h5 class="center">Your Sign Description</h5>
+
+            <p id=sign-description class="light"></p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <div id="response-container"></div>
+            <!-- <h5 class="center">Get Your Daily Horoscopes!</h5> -->
+
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h5 class="center">Your Health</h5>
+
+            <p id=your-health class="light"></p>
+          </div>
+        </div>
+        <!-- <div class="content-container">
+          <div class="col s12 m4 horoscope-blocks">
+            <div class="icon-block">
+              <h5 class="center">Are You Compatible?</h5>
+  
+              <p class="light">A lot of people don't know but individual's horoscope may be more compatible than others.</p>
+            </div>
+          </div>
+          <div class="col s12 m4 horoscope-blocks">
+            <div class="icon-block">
+              <h5 class="center">Get Your Daily Horoscopes!</h5>
+  
+              <p class="light">Get your daily horoscopes for great tips! Every horoscope has different approaches to life situations.</p>
+            </div>
+          </div>
+        </div> -->
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="horoscope-container valign-wrapper">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <div class="row center">
+          <h5 class="header purple-text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint cupiditate nesciunt consequatur esse molestiae quidem quos voluptatibus alias voluptatum, iusto laboriosam commodi placeat, porro quibusdam illo impedit odit excepturi quasi.</h5>
+        </div>
+        <div id="response-container"></div>
+      </div>
+
+      <footer class="page-footer white">
+        <div class="footer-copyright">
+          <div class="container">
+           <a class="purple-text text-lighten-3">Made by Group 6 :)</a>
+          </div>
+        </div>
+      </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+  <script>
+  //Function for horoscope sign description API
+  fetch("https://horoscope5.p.rapidapi.com/general/daily?sign=leo", {
+  "method": "GET",
+  "headers": {
+  "x-rapidapi-key": "fb68ac8d4amsh1eca1b85f9676c3p16272djsnfef6754291a6",
+  "x-rapidapi-host": "horoscope5.p.rapidapi.com"
+  }
+  })
+  .then(function(response) {
+
+  const data =  response.json();
+  data.then(res => {
+    console.log(res.result.description);
+    document.getElementById('sign-description').innerHTML= res.result.description;
+  })
+
+  })
+  .then(function(response) {
+  console.log(response);
+  }); 
+
+  function giphyLeo() {
+    var giphyLeo = document.querySelector('#giphyLeo').value;
+  
+    fetch(
+      'https://api.giphy.com/v1/gifs/search?q=' +
+        'leo-astrotwins' +
+        '&api_key=LFR5Bj92lwn7G43jEuUV0n7MPc8tI1LE'
+    )
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(response) {
+        console.log(response.data[0]);
+
+        var responseContainerEl = document.querySelector('#response-container');
+  
+        responseContainerEl.innerHTML = '';
+  
+        var gifImg = document.createElement('img');
+        gifImg.setAttribute('src', response.data[0].images.fixed_height.url);
+  
+        // Append 'gifImg' to the <div>
+        responseContainerEl.appendChild(gifImg);
+      });
+  }
+  giphyLeo();
+
+    // Function for Health by API
+
+    fetch("https://horoscope5.p.rapidapi.com/health/daily?sign=leo", {
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-key": "fb68ac8d4amsh1eca1b85f9676c3p16272djsnfef6754291a6",
+        "x-rapidapi-host": "horoscope5.p.rapidapi.com"
+      }
+    })
+      .then(function(response) {
+    
+        const data =  response.json();
+        data.then(res => {
+          console.log(res.result.description);
+          document.getElementById('your-health').innerHTML= res.result.description;
+        })
+    
+      })
+      .then(function(response) {
+        console.log(response);
+      });
+  </script> 
+
+  </body>
+</html>
